@@ -8,6 +8,7 @@ export enum Cluster {
     MainnetBeta,
     Testnet,
     Devnet,
+    SPE,
     Custom,
 }
 
@@ -21,6 +22,8 @@ export function clusterSlug(cluster: Cluster): string {
             return 'testnet';
         case Cluster.Devnet:
             return 'devnet';
+        case Cluster.SPE:
+            return 'localspe';
         case Cluster.Custom:
             return 'custom';
     }
@@ -34,6 +37,8 @@ export function clusterName(cluster: Cluster): string {
             return 'Testnet';
         case Cluster.Devnet:
             return 'Devnet';
+        case Cluster.SPE:
+            return 'Local SPE';
         case Cluster.Custom:
             return 'Custom';
     }
@@ -59,6 +64,8 @@ export function clusterUrl(cluster: Cluster, customUrl: string): string {
             return process.env.NEXT_PUBLIC_MAINNET_RPC_URL ?? modifyUrl(MAINNET_BETA_URL);
         case Cluster.Testnet:
             return process.env.NEXT_PUBLIC_TESTNET_RPC_URL ?? modifyUrl(TESTNET_URL);
+        case Cluster.SPE:
+            return 'http://localhost:8899';
         case Cluster.Custom:
             return customUrl;
     }
@@ -72,9 +79,11 @@ export function serverClusterUrl(cluster: Cluster, customUrl: string): string {
             return process.env.MAINNET_RPC_URL ?? modifyUrl(MAINNET_BETA_URL);
         case Cluster.Testnet:
             return process.env.TESTNET_RPC_URL ?? modifyUrl(TESTNET_URL);
+        case Cluster.SPE:
+            return 'http://localhost:8899';
         case Cluster.Custom:
             return customUrl;
     }
 }
 
-export const DEFAULT_CLUSTER = Cluster.MainnetBeta;
+export const DEFAULT_CLUSTER = Cluster.SPE;
